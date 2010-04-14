@@ -10,7 +10,7 @@ begin
     gem.email = "cody.maggard@gmail.com"
     gem.homepage = "http://github.com/cmaggard/trends"
     gem.authors = ["Cody Maggard"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "shoulda", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

@@ -1,5 +1,11 @@
 require 'helper'
 
+module Trends
+  class TrendAnalyzer
+    attr_accessor :trend_dict
+  end
+end
+
 class TestTrends < Test::Unit::TestCase
   context "A Trend" do
     setup do

@@ -36,6 +36,12 @@ class TestTrends < Test::Unit::TestCase
         @trend.process("derp derp a derp derp derp")
         assert_equal 1, @trend.trend_dict['derp']
       end
+      
+      should "not count a word in the stop words list" do
+        # 'damn' is not in the list. 'likely' is. this is likely to change
+        @trend.process("damn likely")
+        assert_equal ['damn'], @trend.trend_dict.keys
+      end
     end
 
   end

@@ -6,6 +6,24 @@ module Trends
       @trend_dict = Hash.new(0)
     end
 
+    def process(tweet)
+      temp_arr = []
+      arrs = preprocess(tweet)
+      arrs.each do |wordset|
+        ws_size = wordset.size
+        wordset.each_with_index do |item, idx|
+          idx.upto(ws_size-1) do |i|
+            words = wordset[idx..i].join(" ")
+            temp_arr << words
+            #temp_hash[words] = true
+          end
+        end
+      end
+      temp_arr.uniq.each do |w|
+        @trend_dict[w] += 1
+      end
+    end
+
     # Split tweet into array of arrays, each one containing trendable words
     def preprocess(tweet)
       idx = 0
@@ -19,23 +37,6 @@ module Trends
         arr[idx] << word.gsub(/[^a-zA-Z0-9#]/, '')
       end
       arr.reject &:empty?
-    end
-
-    def process(tweet)
-      temp_hash = Hash.new
-      arrs = preprocess(tweet)
-      arrs.each do |wordset|
-        ws_size = wordset.size
-        wordset.each_with_index do |item, idx|
-          idx.upto(ws_size-1) do |i|
-            words = wordset[idx..i].join(" ")
-            temp_hash[words] = true
-          end
-        end
-      end
-      temp_hash.keys.each do |k|
-        @trend_dict[k] = @trend_dict[k] + 1
-      end
     end
 
     private

@@ -38,7 +38,7 @@ class TestTrends < Test::Unit::TestCase
       end
     end# }}}
 
-    context "when processing" do
+    context "when processing" do# {{{
       should "not count a word more than once in the same tweet" do
         @trend.process("derp derp a derp derp derp")
         assert_equal 1, @trend.trend_dict['derp']
@@ -48,7 +48,7 @@ class TestTrends < Test::Unit::TestCase
         @trend.process("goodbye world")
         assert_same_elements ['goodbye', 'world', 'goodbye world'], @trend.trend_dict.keys 
       end
-    end
+    end# }}}
 
   end
 end

@@ -6,6 +6,21 @@ module Trends
       @trend_dict = Hash.new(0)
     end
 
+    # Split tweet into array of arrays, each one containing trendable words
+    def preprocess(tweet)
+      idx = 0
+      arr = [[]]
+      tweet.split.each do |word|
+        if reject(word)
+          idx = idx + 1
+          arr[idx] = []
+          next
+        end
+        arr[idx] << word.gsub(/[^a-zA-Z0-9#]/, '')
+      end
+      arr.reject &:empty?
+    end
+
     def process(tweet)
       temp_hash = {}
       tweet.split.each do |w|
@@ -18,11 +33,8 @@ module Trends
     end
 
     private
-    def add(word)
-      return if word[0] == '@'
-      w = word.gsub(/[^a-zA-Z0-9#]/, '')
-      @@stop_words.member?(w) ? nil : w
-      #@trend_dict[w] = @trend_dict[w] + 1
+    def reject(word)
+       word[0] == '@' or @@stop_words.member?(word)
     end
   end
 end

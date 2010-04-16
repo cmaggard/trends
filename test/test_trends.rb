@@ -13,18 +13,18 @@ class TestTrends < Test::Unit::TestCase
     end
 
     should "start empty" do
-      assert_empty @trend.trend_dict
+      assert_equal Hash.new, @trend.trend_dict
     end
 
-    context "when preprocessing" do
+    context "when preprocessing" do# {{{
       should "split on @ replies into separate arrays" do
         res = @trend.preprocess("durb @cmaggard twerp")
-        assert_equal [['durb'], ['twerp']], res
+        assert_same_elements [['durb'], ['twerp']], res
       end
 
       should "split on stop words" do
         res = @trend.preprocess("durb likely to twerp")
-        assert_equal [['durb'], ['twerp']], res
+        assert_same_elements [['durb'], ['twerp']], res
       end
 
       should "ignore punctuation" do
@@ -36,7 +36,7 @@ class TestTrends < Test::Unit::TestCase
         res = @trend.preprocess("derp")
         assert_equal [['derp']], res
       end
-    end
+    end# }}}
 
     context "when processing" do
       should "not count a word more than once in the same tweet" do
@@ -46,7 +46,7 @@ class TestTrends < Test::Unit::TestCase
       
       should "account for all different ordered combinations of terms" do
         @trend.process("goodbye world")
-        assert_equal ['goodbye', 'world', 'goodbye world'], @trend.trend_dict.keys 
+        assert_same_elements ['goodbye', 'world', 'goodbye world'], @trend.trend_dict.keys 
       end
     end
 

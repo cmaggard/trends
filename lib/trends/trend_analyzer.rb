@@ -22,10 +22,16 @@ module Trends
     end
 
     def process(tweet)
-      temp_hash = {}
-      tweet.split.each do |w|
-        res = add(w)
-        temp_hash[res] = true unless res.nil?
+      temp_hash = Hash.new
+      arrs = preprocess(tweet)
+      arrs.each do |wordset|
+        ws_size = wordset.size
+        wordset.each_with_index do |item, idx|
+          idx.upto(ws_size-1) do |i|
+            words = wordset[idx..i].join(" ")
+            temp_hash[words] = true
+          end
+        end
       end
       temp_hash.keys.each do |k|
         @trend_dict[k] = @trend_dict[k] + 1

@@ -1,6 +1,6 @@
 module Trends
   class TrendAnalyzer
-    @@stop_words = open(File.join("data", "stopwords.txt")).readlines.map(&:strip)
+    @@stop_words = open(File.join("data", "stopwords.txt")).readlines.map &:strip
 
     def initialize
       @trend_dict = Hash.new(0)
@@ -15,7 +15,6 @@ module Trends
           idx.upto(ws_size-1) do |i|
             words = wordset[idx..i].join(" ")
             temp_arr << words
-            #temp_hash[words] = true
           end
         end
       end

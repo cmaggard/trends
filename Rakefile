@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "trends"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Textual trend analysis}
+    gem.description = %Q{Trends helps to analyze various sources for repeating trends}
     gem.email = "cody.maggard@gmail.com"
     gem.homepage = "http://github.com/cmaggard/trends"
     gem.authors = ["Cody Maggard"]
